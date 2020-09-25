@@ -1,6 +1,4 @@
-Readme:
-
-This bot is called the grand archiver. This bot has a number of commands, but first, here is how to setup the bot:
+This bot is called the Grand Archiver. This bot has a number of commands, but first, here is how to setup the bot:
 -Each folder is a class in Java. I used eclipse to make this program.
 -You must download Discord JDA: https://github.com/DV8FromTheWorld/JDA
 -In the Main class, you must do the following:
