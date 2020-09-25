@@ -1,0 +1,20 @@
+package discord.GrandArchiver;
+
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
+public class SetChannel {
+	private GuildMessageReceivedEvent event;
+
+	public SetChannel(GuildMessageReceivedEvent event) {
+		this.event = event;
+	}
+
+	public void command(String channelName) {
+		try {
+			Main.archive = Main.getChannelByName(channelName);
+			event.getChannel().sendMessage("**#" + Main.archive.getName() + " **is now the archive.").queue();
+		} catch (Exception e) {
+			event.getChannel().sendMessage("**Error!** Channel not found.").queue();
+		}
+	}
+}
