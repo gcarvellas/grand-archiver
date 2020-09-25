@@ -1,0 +1,34 @@
+package discord.GrandArchiver;
+
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
+public class Help {
+	private GuildMessageReceivedEvent event;
+	private EmbedBuilder info;
+
+	public Help(GuildMessageReceivedEvent event) {
+		this.event = event;
+	}
+
+	public void command() {
+		info = new EmbedBuilder();
+		info.setTitle("Commands:");
+		info.setDescription("*" + Main.prefix
+				+ "setChannel channelName*  - sets the channel the archive is pulling from.\n  *" + Main.prefix
+				+ "getChannel* - returns the channel the archive is pulling from.\n  *" + Main.prefix
+				+ "refresh* - refreshes pool. Must use " + Main.prefix + "setChannel first.\n  *" + Main.prefix
+				+ "random* - get a random photo from the pool.\n  *" + Main.prefix
+				+ "saidLatestMessage* - returns the author of the latest " + Main.prefix + "random message.\n  *"
+				+ Main.prefix + "firingSquad* - Shoots everyone in the server with a ping.\n  *" + Main.prefix
+				+ "painRoulette counter* - Sends a random person a private message of whatever the roulette message is set to. By default, the message is empty.\n  *"
+				+ Main.prefix + "painRoulette set message* - Sets the message the pain roulette will send.\n  *"
+				+ Main.prefix + "painRoulette get* - returns the message the pain roulette is set to.");
+		info.setAuthor("Dragon", null,
+				"https://vignette.wikia.nocookie.net/bakemonogatari1645/images/2/2c/Ougiprofile.png/revision/latest?cb=20161229051633");
+		info.setColor(0xa88785);
+		info.setImage("https://media2.giphy.com/media/it3SErBlJmj60/source.gif");
+		event.getChannel().sendMessage(info.build()).queue();
+		info.clear();
+	}
+}
