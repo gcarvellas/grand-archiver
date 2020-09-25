@@ -1,0 +1,28 @@
+package discord.GrandArchiver;
+
+import java.util.List;
+
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageHistory;
+
+public class DownloadRefreshed {
+	private MessageHistory history;
+
+	public DownloadRefreshed(MessageHistory history) {
+		this.history = history;
+	}
+
+	public void command() {
+		List<Message> messages = history.getRetrievedHistory();
+		for (int i = 0; i < history.size(); i++) {
+			try {
+				if (messages.get(i).getAttachments().get(0) != null) {
+					messages.get(i).getAttachments().get(0).downloadToFile(Main.directory + "\\" + (i + 1) + ".png");
+				}
+			} catch (IndexOutOfBoundsException io) {
+				new Thread(new ImageDownloader(messages.get(i).getContentDisplay(), i + 1)).start();
+			}
+		}
+	}
+
+}
