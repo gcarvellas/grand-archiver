@@ -1,4 +1,4 @@
->This bot is called the Grand Archiver. This bot has a number of commands, but first, here is how to setup the bot:
+#This bot is called the Grand Archiver. This bot has a number of commands, but first, here is how to setup the bot:
 
 Each folder is a class in Java. I used eclipse to make this program
 
@@ -7,10 +7,12 @@ You must download Discord JDA: https://github.com/DV8FromTheWorld/JDA
 >In the Main class, you must do the following:
   1. in line 20, set your bot string given in the Discord developer page for your bot. If you do not put this string, your bot will not work.
   2. if you want @@download to work, in line 15 in Main, be sure to set a directory<
-  
+<
+
 >In the DepositFromFolder class:
   - in line 23, if you want @@depositFromFolder to work, be sure to set a directory
-  
+<
+
 *Warning: I would not recommend putting this bot on a public server, since anyone can use any of these commands. None of these commands are restricted by perms.
 
 >Notes:
