@@ -1,0 +1,31 @@
+package discord.GrandArchiver;
+
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
+import java.io.File;
+import java.util.Scanner;
+
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Message.Attachment;
+import net.dv8tion.jda.api.entities.TextChannel;
+
+public class DepositFromFolder {
+	private GuildMessageReceivedEvent event;
+	private Scanner reader;
+
+	public DepositFromFolder(GuildMessageReceivedEvent event) {
+		this.event = event;
+		reader = new Scanner(System.in);
+	}
+	
+	public void command() {		
+		File file = new File("C:\\Users\\georg\\Desktop\\Archiver\\Images");
+		File[] files = file.listFiles();
+		System.out.println(files.length);
+		for(File f: files) {
+			event.getChannel().sendMessage(" ").addFile(f).queue();
+		}
+		event.getChannel().sendMessage("Done!").queue();
+	}
+}
