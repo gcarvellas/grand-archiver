@@ -1,4 +1,4 @@
-#This bot is called the Grand Archiver. This bot has a number of commands, but first, here is how to setup the bot:
+>This bot is called the Grand Archiver. This bot has a number of commands, but first, here is how to setup the bot:
 
 Each folder is a class in Java. I used eclipse to make this program
 
@@ -13,14 +13,17 @@ You must download Discord JDA: https://github.com/DV8FromTheWorld/JDA
   
 *Warning: I would not recommend putting this bot on a public server, since anyone can use any of these commands. None of these commands are restricted by perms.
 
-##Notes:
->For every command on discord, the prefix is "@@". To change this, go to the Main class, and line 14 is where you can change this prefix.
->In this program, you cannot immediately just interact with a text chat right away. You have to set that text chat with @@setChannel, and then refresh that channel with @@refresh
->There is a couple of commands called painRoulette. How painRoulette works, is that there must be a link that must be set first byusing @@painRoulette set URL. Once that is set, once you do @@painRoulette counter, the bot goes to the private message of a user, and sends the link that was set by @@painRoulette set for counter amount of times.
+>Notes:
 
-List of Commands:
-  >Console Commands:
-  >@@download - given that @@refresh and @@setChannel have both been operated, and given that there is a file directory set, the command will take all of the images in a text channel and download them to a file directory.
+-For every command on discord, the prefix is "@@". To change this, go to the Main class, and line 14 is where you can change this prefix.
+
+-In this program, you cannot immediately just interact with a text chat right away. You have to set that text chat with @@setChannel, and then refresh that channel with @@refresh
+
+-There is a couple of commands called painRoulette. How painRoulette works, is that there must be a link that must be set first byusing @@painRoulette set URL. Once that is set, once you do @@painRoulette counter, the bot goes to the private message of a user, and sends the link that was set by @@painRoulette set for counter amount of times.
+
+>List of Commands:
+##Console Commands:
+  -@@download - given that @@refresh and @@setChannel have both been operated, and given that there is a file directory set, the command will take all of the images in a text channel and download them to a file directory.
   
   User Commands:
   Essential Commands:
