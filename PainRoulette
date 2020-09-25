@@ -34,7 +34,7 @@ public class PainRoulette {
 		PrivateChannel pc = target.getUser().openPrivateChannel().complete();
 
 		for (int i = 0; i < loopCounter; i++) {
-			System.out.println("Rat Roulette: Targeting " + target.getUser().toString());
+			System.out.println("Pain Roulette: Targeting " + target.getUser().toString());
 			pc.sendMessage("**You've been chosen by pain roulette from**: " + event.getAuthor()).queue();
 			pc.sendMessage(link).queue();
 		}
