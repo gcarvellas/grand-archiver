@@ -1,0 +1,109 @@
+package discord.GrandArchiver;
+
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageHistory;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+public class Commands extends ListenerAdapter {
+	private static MessageHistory refreshedHistory;
+	private Message randomMessage;
+	private String painRouletteUrl = "";
+
+	// Helper Methods
+	public static MessageHistory getRefreshedHistory() {
+		return refreshedHistory;
+	}
+
+	// Main
+	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+
+		String[] args = event.getMessage().getContentRaw().split(" ");
+
+		// @@depositFromFolder
+		if (args[0].equalsIgnoreCase(Main.prefix + "depositFromFolder")) {
+			DepositFromFolder depositer = new DepositFromFolder(event);
+			depositer.command();
+		}
+		
+		// @@help
+		if (args[0].equalsIgnoreCase(Main.prefix + "help")) {
+			Help help = new Help(event);
+			help.command();
+		}
+
+		// @@setChannel channelName
+		else if (args[0].equalsIgnoreCase(Main.prefix + "setChannel")) {
+			SetChannel setChannel = new SetChannel(event);
+			setChannel.command(args[1]);
+		}
+
+		// @@getChannel
+		else if (args[0].equalsIgnoreCase(Main.prefix + "getChannel")) {
+			GetChannel getChannel = new GetChannel(event);
+			getChannel.command();
+		}
+
+		// @@refresh
+		else if (args[0].equalsIgnoreCase(Main.prefix + "refresh")) {
+			Refresh refresh = new Refresh(event);
+			refresh.command();
+			refreshedHistory = refresh.getHistory();
+		}
+
+		// @@random
+		else if (args[0].equalsIgnoreCase(Main.prefix + "random")) {
+			try {
+				Randomer random = new Randomer(event, refreshedHistory);
+				random.command();
+				randomMessage = random.getRandomMessage();
+			} catch (Exception e) {
+				event.getChannel().sendMessage("**Error!**").queue();
+				System.out.println("!Error in the " + Main.prefix + "random command.");
+			}
+		}
+
+		// @@saidLatestMessage
+		else if (args[0].equalsIgnoreCase(Main.prefix + "saidLatestMessage")) {
+			SaidLatestMessage saidLatestMessage = new SaidLatestMessage(event);
+			try {
+				saidLatestMessage.command(randomMessage);
+			} catch (Exception e) {
+				event.getChannel().sendMessage("**Error!**").queue();
+				System.out.println("!Error in the " + Main.prefix + "saidLatestMessage command.");
+			}
+		}
+
+		// @@firingSquad counter
+		else if (args[0].equalsIgnoreCase(Main.prefix + "firingSquad")) {
+			FiringSquad firingSquad = new FiringSquad(event, Integer.parseInt(args[1]));
+			firingSquad.command();
+		}
+
+		// @@painRoulette counter
+		else if (args[0].equalsIgnoreCase(Main.prefix + "painRoulette")) {
+			PainRoulette painRoulette = new PainRoulette(event, painRouletteUrl);
+
+			// @@painRoulette set URL
+			if (args[1].equalsIgnoreCase("set")) {
+				painRouletteUrl = args[2];
+				event.getChannel().sendMessage("**Message has been set!**").queue();
+			}
+
+			// @@painRoulette get
+			else if (args[1].equalsIgnoreCase("get")) {
+				event.getChannel().sendMessage("**Message: **" + painRouletteUrl).queue();
+			}
+
+			else {
+				try {
+					painRoulette.command(Integer.parseInt(args[1]));
+				} catch (Exception ex) {
+					System.out.println("Pain roulette: Target failed.");
+					event.getChannel().sendMessage("**Error!**").queue();
+				}
+			}
+		}
+
+	}
+}
