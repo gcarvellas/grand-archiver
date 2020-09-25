@@ -1,0 +1,39 @@
+package discord.GrandArchiver;
+
+import java.util.List;
+
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
+public class FiringSquad {
+	private GuildMessageReceivedEvent event;
+	private int loopCounter;
+	private List<Member> members;
+
+	public FiringSquad(GuildMessageReceivedEvent event, int loopCounter) {
+		this.event = event;
+		this.loopCounter = loopCounter;
+		if (this.loopCounter > 10) {
+			this.loopCounter = 10;
+			event.getChannel().sendMessage("**Cannot loop more than 10 times. Sending 10 images...**").queue();
+		}
+	}
+
+	public void command() {
+		members = Main.getChannelByName("general").getMembers();
+		System.out.println("Firing Squad is now in action.");
+		event.getChannel().sendMessage("**Enemy Spotted**").queue();
+		int reloadCounter = 1;
+		for (int i = 0; i < loopCounter; i++) {
+			for (int j = 0; j < members.size(); j++) {
+				event.getChannel().sendMessage(members.get(j).getAsMention()).queue();
+				reloadCounter++;
+				if (reloadCounter > 3) {
+					event.getChannel().sendMessage("**Reloading...**").queue();
+					reloadCounter = 0;
+				}
+			}
+			event.getChannel().sendMessage("**Targets eliminated.**").queue();
+		}
+	}
+}
