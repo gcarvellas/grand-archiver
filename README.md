@@ -3,7 +3,9 @@ This bot is called the Grand Archiver. This bot has a number of commands, but fi
 -You must download Discord JDA: https://github.com/DV8FromTheWorld/JDA
 -In the Main class, you must do the following:
   in line 20, set your bot string given in the Discord developer page for your bot. If you do not put this string, your bot will not work.
-  if you want @@download and @@depositFromFolder to work, in line 15 in Main, be sure to set a directory to where you want the files to go
+  if you want @@download to work, in line 15 in Main, be sure to set a directory
+-In the DepositFromFolder class:
+  in line 23, if you want @@depositFromFolder to work, be sure to set a directory
   
 Warning: I would not recommend putting this bot on a public server, since anyone can use any of these commands. None of these commands are restricted by perms.
 
