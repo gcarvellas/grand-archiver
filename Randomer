@@ -1,0 +1,55 @@
+package discord.GrandArchiver;
+
+import java.util.List;
+import java.util.Random;
+
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Message.Attachment;
+import net.dv8tion.jda.api.entities.MessageHistory;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
+public class Randomer {
+
+	private GuildMessageReceivedEvent event;
+	private MessageHistory history;
+	private Message randomMessage;
+
+	public Randomer(GuildMessageReceivedEvent event, MessageHistory history) {
+		this.event = event;
+		this.history = history;
+	}
+
+	public void command() {
+		try {
+			event.getChannel().sendTyping().queue();
+
+			Random randomizer = new Random();
+			List<Message> messages = history.getRetrievedHistory();
+			int randomNumber = randomizer.nextInt((history.size() - 1) + 1);
+			randomMessage = messages.get(randomNumber);
+
+			try {
+				event.getChannel().sendMessage(randomMessage).queue();
+				System.out.println("[" + randomNumber + "] " + "Printing message from **" + randomMessage.getAuthor()
+						+ "** at **" + randomMessage.getTimeCreated() + "** that says: **"
+						+ randomMessage.getContentRaw() + "**");
+			} catch (Exception e) {
+				Attachment randomAttachment = randomMessage.getAttachments()
+						.get((randomizer.nextInt(randomMessage.getAttachments().size()) - 1) + 1);
+
+				event.getChannel().sendMessage(randomAttachment.getUrl()).queue();
+				System.out.println(
+						"**[" + randomNumber + "] " + "Printing message from " + randomMessage.getAuthor() + " at "
+								+ randomMessage.getTimeCreated() + " that says: " + randomMessage.getContentRaw() + "");
+
+			}
+
+		} catch (NullPointerException e) {
+			event.getChannel().sendMessage("**Error!** No archive refreshed.").queue();
+		}
+	}
+
+	public Message getRandomMessage() {
+		return randomMessage;
+	}
+}
