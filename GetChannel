@@ -1,0 +1,19 @@
+package discord.GrandArchiver;
+
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
+public class GetChannel {
+	private GuildMessageReceivedEvent event;
+
+	public GetChannel(GuildMessageReceivedEvent event) {
+		this.event = event;
+	}
+
+	public void command() {
+		try {
+			event.getChannel().sendMessage("**" + Main.archive.getName() + " **is the current archive.").queue();
+		} catch (Exception e) {
+			event.getChannel().sendMessage("**Error!** No archive set.").queue();
+		}
+	}
+}
