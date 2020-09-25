@@ -1,0 +1,42 @@
+package discord.GrandArchiver;
+
+import java.util.List;
+import java.util.Random;
+
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.entities.PrivateChannel;
+
+public class PainRoulette {
+	private GuildMessageReceivedEvent event;
+	private List<Member> members;
+	private String link;
+
+	public PainRoulette(GuildMessageReceivedEvent event, String link) {
+		this.event = event;
+		this.link = link;
+
+	}
+
+	public void command(int loopCounter) {
+		if (loopCounter > 10) {
+			loopCounter = 10;
+			event.getChannel().sendMessage("**Cannot loop more than 10 times. Sending 10 images...**").queue();
+		}
+
+		members = Main.getChannelByName("general").getMembers();
+		Random randomizer = new Random();
+
+		Member target = members.get(randomizer.nextInt(members.size()));
+
+		event.getChannel().sendMessage("**Pain roulette: **" + target.getAsMention() + " is the target.").queue();
+
+		PrivateChannel pc = target.getUser().openPrivateChannel().complete();
+
+		for (int i = 0; i < loopCounter; i++) {
+			System.out.println("Rat Roulette: Targeting " + target.getUser().toString());
+			pc.sendMessage("**You've been chosen by pain roulette from**: " + event.getAuthor()).queue();
+			pc.sendMessage(link).queue();
+		}
+	}
+}
