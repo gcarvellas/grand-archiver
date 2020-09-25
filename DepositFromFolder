@@ -20,7 +20,7 @@ public class DepositFromFolder {
 	}
 	
 	public void command() {		
-		File file = new File("C:\\Users\\georg\\Desktop\\Archiver\\Images");
+		File file = new File("ENTER DIRECTORY HERE");
 		File[] files = file.listFiles();
 		System.out.println(files.length);
 		for(File f: files) {
