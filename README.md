@@ -2,6 +2,8 @@
 ## About
 This bot is called the Grand Archiver. This bot has a number of commands, but first, here is how to setup the bot:
 
+**NOTE (4/1/2020): JDA is required for this program to work and the latest version of JDA requires Maven. the xml file for Maven is in this github page.
+
 Each folder is a class in Java. I used eclipse to make this program
 
 ## Instructions
