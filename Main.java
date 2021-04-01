@@ -3,22 +3,33 @@ package discord.GrandArchiver;
 import java.util.Scanner;
 
 import javax.security.auth.login.LoginException;
-
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.ChunkingFilter;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 public class Main {
 	public static JDA jda;
 	public static String prefix = "@@";
-	public static String directory = "ENTER YOUR DIRECTORY HERE";
+	public static String directory = PUT DIRECTORY HERE;
+	private static String token = PUT TOKEN HERE;
 	public static TextChannel archive;
 	private static Scanner reader = new Scanner(System.in);
 
 	public static void main(String[] args) throws LoginException {
-		jda = new JDABuilder("ENTER BOT CODE HERE").build();
-		jda.getPresence().setActivity(Activity.playing("Type @@help for info."));
+		JDABuilder jdaBuilder = JDABuilder.createDefault(token)
+		          .setChunkingFilter(ChunkingFilter.ALL) // enable member chunking for all guilds
+		          .setMemberCachePolicy(MemberCachePolicy.ALL) // ignored if chunking enabled
+		          .enableIntents(GatewayIntent.GUILD_MEMBERS);
+		try {
+			jda = jdaBuilder.build();
+		} catch (LoginException e) {
+			e.printStackTrace();
+		}
+		jda.getPresence().setActivity(Activity.playing("Ping @Dragon to turn on the bot. Type @@help for info."));
 		jda.addEventListener(new Commands());
 		selectCommand(reader.nextLine());
 	}
