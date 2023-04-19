@@ -1,3 +1,5 @@
+# This project is for personal use and is now read-only
+
 # Grand Archiver
 ## About
 This bot is called the Grand Archiver. This bot has a number of commands, but first, here is how to setup the bot:
